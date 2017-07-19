@@ -50,4 +50,39 @@ class iOS_Spotify_TestTests: XCTestCase {
         XCTAssert(ids.count == 0)
     }
 
+    func testFetchingNewReleases() {
+        let fetcher = SpotifyAlbumFetcher()
+        let token = "BQD9qDZVZ81CCmsJDkZwabcLDHemnzYV1xOqBKJ9AdtmZzKNCNDfs-8gE1uQxZZgAHYBYHc8iKw6MaPdiohHV72M_3YByqmGzHiDMHr88Dm8fl1WmfJQOOFrlxKltMkVeFlUDOo04ekByg"
+        let expectation = self.expectation(description: "Albums fetching")
+        fetcher.fetchAlbums(token: token, offset: 0, limit: 20) { (result) in
+            switch result {
+            case .albums(let albums):
+                print(albums)
+                expectation.fulfill()
+            case .error(let error):
+                print(error)
+                XCTFail()
+            }
+        }
+        self.wait(for: [expectation], timeout: 10.0)
+    }
+
+    func testFetchingTracks() {
+        let fetcher = SpotifyTracksFetcher()
+        let token = "BQD9qDZVZ81CCmsJDkZwabcLDHemnzYV1xOqBKJ9AdtmZzKNCNDfs-8gE1uQxZZgAHYBYHc8iKw6MaPdiohHV72M_3YByqmGzHiDMHr88Dm8fl1WmfJQOOFrlxKltMkVeFlUDOo04ekByg"
+        let album = Album(id: "2Ivz1Ch7qB9yR3uLr8T1pj", name: "Spotify Singles", artists: "Lauv")
+        let expectation = self.expectation(description: "Tracks fetching")
+        fetcher.fetchTracks(token: token, album: album){ (result) in
+            switch result {
+            case .tracks(let tracks):
+                print(tracks)
+                expectation.fulfill()
+            case .error(let error):
+                print(error)
+                XCTFail()
+            }
+        }
+        self.wait(for: [expectation], timeout: 10.0)
+    }
+
 }

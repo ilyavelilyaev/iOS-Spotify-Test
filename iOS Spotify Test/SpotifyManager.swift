@@ -69,4 +69,10 @@ class SpotifyManager {
         return session.isValid()
     }
 
+    func getToken() -> String? {
+        guard sessionIsValid() else { return nil }
+        let auth = SPTAuth.defaultInstance()!
+        return auth.session.accessToken
+    }
+
 }
