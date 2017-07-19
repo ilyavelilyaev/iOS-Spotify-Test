@@ -40,7 +40,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to iOS Spotify Test!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucv-xB-Dmh">
-                                <rect key="frame" x="36" y="267" width="303" height="21"/>
+                                <rect key="frame" x="36" y="223" width="303" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -80,8 +80,87 @@
                     <view key="view" contentMode="scaleToFill" id="PDR-yi-kkB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="R0Y-G4-wma">
+                                <rect key="frame" x="36" y="30" width="303" height="29"/>
+                                <segments>
+                                    <segment title="Newest"/>
+                                    <segment title="Album"/>
+                                    <segment title="Artist"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedControlValueChanged:" destination="MoF-2O-h8Q" eventType="valueChanged" id="dhM-xk-AvM"/>
+                                </connections>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P8b-px-sWl">
+                                <rect key="frame" x="0.0" y="78" width="375" height="589"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrackTableViewCell" id="yL0-sc-faW" customClass="TrackTableViewCell" customModule="iOS_Spotify_Test" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yL0-sc-faW" id="H3k-ji-idG">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="7I0-7z-dJi">
+                                                    <rect key="frame" x="8" y="8" width="359" height="83.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqY-lm-3L1">
+                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="28"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8PO-Yi-1yN">
+                                                            <rect key="frame" x="0.0" y="28" width="359" height="27.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mmb-Kb-BOd">
+                                                            <rect key="frame" x="0.0" y="55.5" width="359" height="28"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="7I0-7z-dJi" secondAttribute="trailing" id="755-Yo-CHP"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="7I0-7z-dJi" secondAttribute="bottom" id="OhV-t2-cvI"/>
+                                                <constraint firstItem="7I0-7z-dJi" firstAttribute="leading" secondItem="H3k-ji-idG" secondAttribute="leadingMargin" id="iPt-HB-UNj"/>
+                                                <constraint firstItem="7I0-7z-dJi" firstAttribute="top" secondItem="H3k-ji-idG" secondAttribute="topMargin" id="nB0-hz-4JR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="albumLabel" destination="8PO-Yi-1yN" id="rO3-4a-bOe"/>
+                                            <outlet property="artistLabel" destination="Mmb-Kb-BOd" id="1wq-Bf-5Fb"/>
+                                            <outlet property="trackLabel" destination="uqY-lm-3L1" id="z2Q-Au-1lQ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="MoF-2O-h8Q" id="r3Z-fu-5EJ"/>
+                                    <outlet property="delegate" destination="MoF-2O-h8Q" id="lLW-Bg-0H2"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="P8b-px-sWl" secondAttribute="trailing" id="Ag7-ew-ZtI"/>
+                            <constraint firstItem="R0Y-G4-wma" firstAttribute="top" secondItem="7hK-hf-FGu" secondAttribute="bottom" constant="10" id="U7T-id-SyE"/>
+                            <constraint firstItem="R0Y-G4-wma" firstAttribute="leading" secondItem="PDR-yi-kkB" secondAttribute="leadingMargin" constant="20" id="aSu-9W-Y1t"/>
+                            <constraint firstItem="P8b-px-sWl" firstAttribute="leading" secondItem="PDR-yi-kkB" secondAttribute="leading" id="ddp-Q4-l21"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="R0Y-G4-wma" secondAttribute="trailing" constant="20" id="mE7-oI-irf"/>
+                            <constraint firstItem="P8b-px-sWl" firstAttribute="top" secondItem="R0Y-G4-wma" secondAttribute="bottom" constant="20" id="wtu-fS-veZ"/>
+                            <constraint firstItem="KMw-8W-2wa" firstAttribute="top" secondItem="P8b-px-sWl" secondAttribute="bottom" id="xGj-I4-Vt9"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="P8b-px-sWl" id="WPw-XA-uA0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mx8-5T-cKW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
