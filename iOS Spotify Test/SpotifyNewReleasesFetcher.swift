@@ -110,8 +110,10 @@ class SpotifyNewReleasesFetcher {
                 strongSelf.fetchTracks(albums: albums)
                 break
             case .error(let error):
-                strongSelf.delegate?.fetcherFailedGettingItems(fetcher: strongSelf,
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.fetcherFailedGettingItems(fetcher: strongSelf,
                                                                error: .other(error))
+                }
                 strongSelf.fetching = false
             }
         }
@@ -131,9 +133,14 @@ class SpotifyNewReleasesFetcher {
                 case .tracks(let tracks):
                     strongSelf.mainCache.append(contentsOf: tracks)
                     strongSelf.generateOrderedCache(order: strongSelf.currentOrder)
-                    strongSelf.delegate?.fetcherDownloadedNewItems(fetcher: strongSelf)
+                    DispatchQueue.main.async {
+                        strongSelf.delegate?.fetcherDownloadedNewItems(fetcher: strongSelf)
+                    }
                 case .error(let error):
-                    strongSelf.delegate?.fetcherFailedGettingItems(fetcher: strongSelf, error: .other(error))
+                    DispatchQueue.main.async {
+                        strongSelf.delegate?.fetcherFailedGettingItems(fetcher: strongSelf,
+                                                                       error: .other(error))
+                    }
                 }
                 strongSelf.fetching = false
             })
