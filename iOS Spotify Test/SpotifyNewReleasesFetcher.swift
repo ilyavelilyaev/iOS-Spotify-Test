@@ -65,7 +65,9 @@ class SpotifyNewReleasesFetcher {
         }
 
         // if there is only 7 items left to show, start loading new
-        if orderedCache.count - idx < 7 {
+        // if ordering is not newest, order will not show right as new items received from spotify 
+        // will not have the same sorting as ours
+        if orderedCache.count - idx < 7 && ordering == .newest {
             fetchNew()
         }
 
@@ -99,7 +101,7 @@ class SpotifyNewReleasesFetcher {
         }
         if fetching { return }
         fetching = true
-        let limit = 20
+        let limit = 50
         albumFetcher.fetchAlbums(token: token, offset: lastFetchedAlbumIndex, limit: limit) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
