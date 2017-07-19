@@ -6,7 +6,8 @@
 //  Copyright © 2017 1. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import SafariServices
 
 class SpotifyManager {
 
@@ -32,6 +33,7 @@ class SpotifyManager {
         return SPTAuth.defaultInstance().canHandle(url)
     }
 
+    /// Call if canHandle succeeded
     func handle(url: URL) {
         let auth = SPTAuth.defaultInstance()!
         auth.handleAuthCallback(withTriggeredAuthURL: url) { (error, session) in
@@ -44,6 +46,27 @@ class SpotifyManager {
                                             object: nil)
         }
     }
-    
+
+
+    /// Logging in
+    func login(from viewController: UIViewController) {
+        let auth = SPTAuth.defaultInstance()!
+
+        if SPTAuth.supportsApplicationAuthentication() {
+            let url = auth.spotifyAppAuthenticationURL()!
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            return
+        }
+
+        let url = auth.spotifyWebAuthenticationURL()!
+        let safariViewController = SFSafariViewController(url: url)
+        viewController.present(safariViewController, animated: true, completion: nil)
+    }
+
+    func sessionIsValid() -> Bool {
+        let auth = SPTAuth.defaultInstance()!
+        guard let session = auth.session else { return false }
+        return session.isValid()
+    }
 
 }
